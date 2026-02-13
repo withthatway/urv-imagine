@@ -1,0 +1,3278 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>URVILLAIN Imagine - Dream. See. Shift.</title>
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="assets/favicon/file_000000005f6871fa9a8853a145b18f71.png">
+    <link rel="apple-touch-icon" href="assets/favicon/file_000000005f6871fa9a8853a145b18f71.png">
+    
+    <!-- Meta Tags -->
+    <meta name="description" content="Transform your imagination into stunning visuals with AI-powered image generation.">
+    <meta name="keywords" content="AI, image generation, art, flux, imagen, pollinations">
+    <meta name="author" content="URVILLAIN">
+    <meta name="robots" content="index, follow">
+    
+    <!-- Open Graph / Social Media Meta Tags -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="URVILLAIN Imagine - AI Image Generator">
+    <meta property="og:description" content="Transform your imagination into stunning visuals with AI-powered image generation.">
+    <meta property="og:image" content="assets/webpage/20260214_001917.png">
+    <meta property="og:url" content="https://urv-imagine.vercel.app/">
+    
+    <!-- Twitter Card Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="URVILLAIN Imagine - AI Image Generator">
+    <meta name="twitter:description" content="Transform your imagination into stunning visuals with AI-powered image generation.">
+    <meta name="twitter:image" content="assets/webpage/20260214_001917.png">
+    
+    <!-- Theme Color -->
+    <meta name="theme-color" content="#000000">
+    <meta name="msapplication-TileColor" content="#000000">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+      /* ============================================
+         CSS VARIABLES & THEME SYSTEM
+         ============================================ */
+      :root {
+        /* Dark Theme (Default) */
+        --bg-main: #000000;
+        --bg-sec: #09090b;
+        --bg-ter: #27272a;
+        --bg-panel: rgba(25, 25, 25, 0.95);
+        --bg-input: #222;
+        
+        --text-main: #e4e4e7;
+        --text-muted: #a1a1aa;
+        --text-secondary: #aaa;
+        
+        --accent: #3b82f6;
+        --accent-dim: rgba(59, 130, 246, 0.1);
+        --accent-secondary: #06b6d4;
+        --danger: #ef4444;
+        --success: #22c55e;
+        --warning: #f59e0b;
+        
+        --border: rgba(255, 255, 255, 0.08);
+        --border-input: rgba(255, 255, 255, 0.1);
+        
+        /* Spacing */
+        --spacing-xs: 0.5rem;
+        --spacing-sm: 1rem;
+        --spacing-md: 1.5rem;
+        --spacing-lg: 2rem;
+        --spacing-xl: 3rem;
+        
+        /* Border Radius */
+        --radius-sm: 3px;
+        --radius-md: 4px;
+        --radius-lg: 6px;
+        --radius-xl: 12px;
+        
+        /* Shadows */
+        --shadow-soft: 0 10px 30px rgba(0, 0, 0, 0.15);
+        --shadow-strong: 0 15px 40px rgba(0, 0, 0, 0.2);
+        
+        /* Typography */
+        --font-heading: 'Poppins', -apple-system, BlinkMacSystemFont, sans-serif;
+        --font-body: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+        --font-mono: 'JetBrains Mono', monospace;
+        
+        /* Transitions */
+        --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        --transition-fast: all 0.15s ease;
+      }
+
+      /* Light Theme Override */
+      [data-theme="light"] {
+        --bg-main: #ffffff;
+        --bg-sec: #f4f4f5;
+        --bg-ter: #e4e4e7;
+        --bg-panel: rgba(255, 255, 255, 0.95);
+        --bg-input: #f9fafb;
+        
+        --text-main: #18181b;
+        --text-muted: #71717a;
+        --text-secondary: #6b7280;
+        
+        --accent: #2563eb;
+        --accent-dim: rgba(37, 99, 235, 0.1);
+        --accent-secondary: #0891b2;
+        --danger: #dc2626;
+        --success: #16a34a;
+        --warning: #d97706;
+        
+        --border: rgba(0, 0, 0, 0.08);
+        --border-input: rgba(0, 0, 0, 0.1);
+        
+        --shadow-soft: 0 10px 30px rgba(0, 0, 0, 0.05);
+        --shadow-strong: 0 15px 40px rgba(0, 0, 0, 0.08);
+      }
+
+      /* ============================================
+         BASE STYLES
+         ============================================ */
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      html {
+        background: var(--bg-main);
+        overflow-x: hidden;
+      }
+      
+      body {
+        font-family: var(--font-body);
+        color: var(--text-main);
+        background: var(--bg-main);
+        margin: 0;
+        padding: 0;
+        min-height: 100vh;
+        line-height: 1.6;
+        font-size: 16px;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        transition: background-color 0.3s ease, color 0.3s ease;
+      }
+      
+      a {
+        font-weight: 500;
+        letter-spacing: 0.03em;
+        text-decoration: none;
+        background: linear-gradient(90deg, var(--accent), var(--accent-secondary));
+        background-clip: text;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        transition: opacity 0.2s ease;
+      }
+      
+      a:hover {
+        opacity: 0.8;
+        text-decoration: underline;
+      }
+
+      /* ============================================
+         UTILITY CLASSES
+         ============================================ */
+      .aig-hidden {
+        display: none !important;
+      }
+
+      /* ============================================
+         FLOATING ACTION BAR (Theme + Key Management)
+         ============================================ */
+      .floating-action-bar {
+        position: fixed;
+        top: 1rem;
+        right: 1rem;
+        z-index: 1000;
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+        transition: var(--transition-smooth);
+      }
+
+      .floating-action-bar.scrolled {
+        transform: translateY(0);
+      }
+
+      .floating-btn {
+        background: rgba(59, 130, 246, 0.1);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: var(--radius-xl);
+        padding: 0.75rem;
+        cursor: pointer;
+        transition: var(--transition-smooth);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 44px;
+        height: 44px;
+        position: relative;
+        overflow: hidden;
+      }
+
+      [data-theme="light"] .floating-btn {
+        background: rgba(255, 255, 255, 0.8);
+        border: 1px solid rgba(0, 0, 0, 0.08);
+      }
+
+      .floating-btn::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(135deg, rgba(59, 130, 246, 0.2), rgba(6, 182, 212, 0.2));
+        opacity: 0;
+        transition: opacity 0.3s ease;
+      }
+
+      .floating-btn:hover {
+        transform: scale(1.08);
+        border-color: var(--accent);
+        box-shadow: 0 8px 25px rgba(59, 130, 246, 0.25);
+      }
+
+      .floating-btn:hover::before {
+        opacity: 1;
+      }
+
+      .floating-btn svg {
+        width: 22px;
+        height: 22px;
+        color: var(--text-main);
+        transition: var(--transition-fast);
+        position: relative;
+        z-index: 1;
+      }
+
+      .floating-btn:hover svg {
+        color: var(--accent);
+      }
+
+      /* Key status indicator dot */
+      .key-status-dot {
+        position: absolute;
+        top: 6px;
+        right: 6px;
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: var(--success);
+        border: 2px solid var(--bg-main);
+        z-index: 2;
+      }
+
+      .key-status-dot.invalid {
+        background: var(--danger);
+        animation: pulse-danger 2s ease-in-out infinite;
+      }
+
+      .key-status-dot.expiring {
+        background: var(--warning);
+        animation: pulse-warning 2s ease-in-out infinite;
+      }
+
+      @keyframes pulse-danger {
+        0%, 100% { transform: scale(1); opacity: 1; }
+        50% { transform: scale(1.2); opacity: 0.7; }
+      }
+
+      @keyframes pulse-warning {
+        0%, 100% { transform: scale(1); opacity: 1; }
+        50% { transform: scale(1.15); opacity: 0.8; }
+      }
+
+      /* ============================================
+         KEY MANAGEMENT PANEL (Dropdown)
+         ============================================ */
+      .key-management-panel {
+        position: absolute;
+        top: calc(100% + 0.5rem);
+        right: 0;
+        width: 320px;
+        max-width: calc(100vw - 2rem);
+        background: rgba(25, 25, 25, 0.95);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        border: 1px solid var(--border);
+        border-radius: var(--radius-lg);
+        padding: var(--spacing-md);
+        box-shadow: var(--shadow-strong);
+        opacity: 0;
+        visibility: hidden;
+        transform: translateY(-10px) scale(0.95);
+        transition: var(--transition-smooth);
+        z-index: 1001;
+      }
+
+      [data-theme="light"] .key-management-panel {
+        background: rgba(255, 255, 255, 0.95);
+      }
+
+      .key-management-panel.show {
+        opacity: 1;
+        visibility: visible;
+        transform: translateY(0) scale(1);
+      }
+
+      .key-panel-header {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        margin-bottom: var(--spacing-md);
+        padding-bottom: var(--spacing-sm);
+        border-bottom: 1px solid var(--border);
+      }
+
+      .key-panel-header svg {
+        width: 20px;
+        height: 20px;
+        color: var(--accent);
+      }
+
+      .key-panel-title {
+        font-family: var(--font-heading);
+        font-weight: 600;
+        font-size: 1rem;
+        color: var(--text-main);
+      }
+
+      .key-display-container {
+        background: var(--bg-input);
+        border: 1px solid var(--border);
+        border-radius: var(--radius-md);
+        padding: 0.75rem;
+        margin-bottom: var(--spacing-sm);
+      }
+
+      .key-display-label {
+        font-size: 0.7rem;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        color: var(--text-muted);
+        margin-bottom: 0.35rem;
+      }
+
+      .key-display-value {
+        font-family: var(--font-mono);
+        font-size: 0.85rem;
+        color: var(--text-main);
+        word-break: break-all;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+      }
+
+      .key-display-value.truncated {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+
+      .key-copy-btn {
+        background: transparent;
+        border: none;
+        cursor: pointer;
+        padding: 0.25rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: var(--transition-fast);
+        flex-shrink: 0;
+      }
+
+      .key-copy-btn svg {
+        width: 16px;
+        height: 16px;
+        color: var(--text-muted);
+      }
+
+      .key-copy-btn:hover svg {
+        color: var(--accent);
+      }
+
+      .key-meta-info {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+        margin-bottom: var(--spacing-md);
+      }
+
+      .key-meta-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.35rem;
+        font-size: 0.75rem;
+        padding: 0.35rem 0.65rem;
+        background: var(--accent-dim);
+        border: 1px solid var(--accent);
+        border-radius: var(--radius-xl);
+        color: var(--text-main);
+      }
+
+      .key-meta-badge.warning {
+        background: rgba(245, 158, 11, 0.1);
+        border-color: var(--warning);
+        color: var(--warning);
+      }
+
+      .key-meta-badge.danger {
+        background: rgba(239, 68, 68, 0.1);
+        border-color: var(--danger);
+        color: var(--danger);
+      }
+
+      .key-meta-badge svg {
+        width: 12px;
+        height: 12px;
+      }
+
+      .key-actions {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+      }
+
+      .key-action-btn {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.5rem;
+        padding: 0.65rem 1rem;
+        border-radius: var(--radius-md);
+        font-weight: 500;
+        font-size: 0.875rem;
+        cursor: pointer;
+        transition: var(--transition-smooth);
+        text-decoration: none;
+        -webkit-text-fill-color: initial;
+        background-clip: initial;
+      }
+
+      .key-action-btn.primary {
+        background: linear-gradient(135deg, var(--accent), var(--accent-secondary));
+        color: white;
+        border: none;
+      }
+
+      .key-action-btn.primary:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 15px rgba(59, 130, 246, 0.4);
+        text-decoration: none;
+      }
+
+      .key-action-btn.secondary {
+        background: var(--bg-ter);
+        color: var(--text-main);
+        border: 1px solid var(--border);
+      }
+
+      .key-action-btn.secondary:hover {
+        background: var(--bg-sec);
+        border-color: var(--accent);
+        text-decoration: none;
+      }
+
+      .key-action-btn svg {
+        width: 16px;
+        height: 16px;
+      }
+
+      .key-no-key {
+        text-align: center;
+        padding: var(--spacing-md);
+        color: var(--text-secondary);
+      }
+
+      .key-no-key-icon {
+        width: 48px;
+        height: 48px;
+        margin: 0 auto var(--spacing-sm);
+        color: var(--text-muted);
+      }
+
+      .key-no-key-text {
+        font-size: 0.875rem;
+        margin-bottom: var(--spacing-md);
+        line-height: 1.5;
+      }
+
+      /* ============================================
+         REGISTRATION OVERLAY
+         ============================================ */
+      .registration-overlay {
+        position: fixed;
+        inset: 0;
+        z-index: 1000;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: var(--bg-main);
+        padding: var(--spacing-md);
+      }
+
+      .registration-overlay::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background: 
+          radial-gradient(circle at 20% 20%, rgba(59, 130, 246, 0.15) 0%, transparent 50%),
+          radial-gradient(circle at 80% 80%, rgba(6, 182, 212, 0.15) 0%, transparent 50%);
+        pointer-events: none;
+      }
+
+      .registration-card {
+        position: relative;
+        z-index: 1;
+        max-width: 480px;
+        width: 100%;
+        background: var(--bg-panel);
+        border: 1px solid var(--border);
+        border-radius: var(--radius-lg);
+        padding: var(--spacing-xl);
+        text-align: center;
+        backdrop-filter: blur(10px);
+        box-shadow: var(--shadow-strong);
+        animation: slideUp 0.5s ease-out;
+      }
+
+      .registration-icon {
+        width: 80px;
+        height: 80px;
+        margin: 0 auto var(--spacing-md);
+        background: linear-gradient(135deg, var(--accent), var(--accent-secondary));
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        animation: pulse 2s ease-in-out infinite;
+      }
+
+      .registration-icon svg {
+        width: 40px;
+        height: 40px;
+        color: white;
+      }
+
+      .registration-title {
+        font-family: var(--font-heading);
+        font-size: 1.75rem;
+        font-weight: 700;
+        margin-bottom: var(--spacing-sm);
+        background: linear-gradient(135deg, var(--accent), var(--accent-secondary));
+        background-clip: text;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
+
+      .registration-subtitle {
+        color: var(--text-secondary);
+        font-size: 1rem;
+        margin-bottom: var(--spacing-lg);
+        line-height: 1.6;
+      }
+
+      .registration-btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.75rem;
+        padding: 1rem 2rem;
+        background: linear-gradient(135deg, var(--accent), var(--accent-secondary));
+        color: white;
+        font-family: var(--font-heading);
+        font-size: 1.1rem;
+        font-weight: 600;
+        border: none;
+        border-radius: var(--radius-md);
+        cursor: pointer;
+        transition: var(--transition-smooth);
+        text-decoration: none;
+        -webkit-text-fill-color: white;
+      }
+
+      .registration-btn:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 10px 30px rgba(59, 130, 246, 0.4);
+        opacity: 1;
+        text-decoration: none;
+      }
+
+      .registration-btn svg {
+        width: 20px;
+        height: 20px;
+      }
+
+      .registration-note {
+        margin-top: var(--spacing-lg);
+        padding: var(--spacing-md);
+        background: var(--accent-dim);
+        border: 1px solid var(--accent);
+        border-radius: var(--radius-md);
+        text-align: left;
+      }
+
+      .registration-note-title {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        font-weight: 600;
+        color: var(--accent);
+        margin-bottom: 0.5rem;
+        font-size: 0.9rem;
+      }
+
+      .registration-note-title svg {
+        width: 16px;
+        height: 16px;
+      }
+
+      .registration-note-text {
+        font-size: 0.85rem;
+        color: var(--text-secondary);
+        line-height: 1.6;
+      }
+
+      .registration-note-text ul {
+        margin: 0.5rem 0 0 1rem;
+        padding: 0;
+      }
+
+      .registration-note-text li {
+        margin-bottom: 0.35rem;
+      }
+
+      /* ============================================
+         LAYOUT
+         ============================================ */
+      .container {
+        width: 100%;
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 var(--spacing-md);
+        position: relative;
+        z-index: 10;
+      }
+
+      /* Background decorations */
+      .bg-decoration {
+        position: fixed;
+        border-radius: 50%;
+        filter: blur(120px);
+        opacity: 0.07;
+        z-index: 1;
+        pointer-events: none;
+        transition: opacity 0.3s ease;
+      }
+
+      [data-theme="light"] .bg-decoration {
+        opacity: 0.04;
+      }
+
+      .bg-decoration-blue {
+        width: 500px;
+        height: 500px;
+        top: -250px;
+        right: -250px;
+        background: var(--accent);
+        animation: pulse 10s ease-in-out infinite;
+      }
+
+      .bg-decoration-cyan {
+        width: 500px;
+        height: 500px;
+        bottom: -250px;
+        left: -250px;
+        background: var(--accent-secondary);
+        animation: pulse 10s ease-in-out infinite alternate;
+      }
+
+      /* ============================================
+         TYPOGRAPHY
+         ============================================ */
+      h1 {
+        font-family: var(--font-heading);
+        font-size: clamp(2rem, 5vw, 2.75rem);
+        font-weight: 800;
+        margin-bottom: var(--spacing-xs);
+        background: linear-gradient(135deg, var(--accent), var(--accent-secondary));
+        background-clip: text;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        letter-spacing: -0.02em;
+      }
+
+      h3 {
+        font-family: var(--font-heading);
+        font-weight: 600;
+        margin: 0 0 var(--spacing-md) 0;
+        font-size: 1.125rem;
+      }
+
+      .subtitle {
+        font-family: var(--font-body);
+        color: var(--text-secondary);
+        font-size: clamp(0.95rem, 3vw, 1.125rem);
+        margin-top: 0;
+        font-weight: 400;
+      }
+
+      /* ============================================
+         HEADER
+         ============================================ */
+      .header {
+        text-align: center;
+        padding: clamp(1.5rem, 5vh, var(--spacing-xl)) 0 var(--spacing-lg);
+        animation: fadeIn 0.5s ease-in-out;
+        position: relative;
+      }
+
+      /* ============================================
+         PANELS & CARDS
+         ============================================ */
+      .panel {
+        background: var(--bg-panel);
+        border-radius: var(--radius-md);
+        border: 1px solid var(--border);
+        padding: var(--spacing-md);
+        backdrop-filter: blur(10px);
+        transition: var(--transition-smooth);
+        box-shadow: var(--shadow-soft);
+        margin-bottom: var(--spacing-md);
+      }
+
+      .panel:hover {
+        transform: translateY(-2px);
+        box-shadow: var(--shadow-strong);
+      }
+
+      /* ============================================
+         BUTTONS
+         ============================================ */
+      .btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.5rem;
+        padding: 0.75rem 1.5rem;
+        border-radius: var(--radius-sm);
+        font-weight: 600;
+        cursor: pointer;
+        transition: var(--transition-smooth);
+        border: none;
+        outline: none;
+        font-family: var(--font-body);
+        font-size: 0.95rem;
+      }
+
+      .btn-primary {
+        background: var(--accent);
+        color: white;
+      }
+
+      .btn-primary:hover:not(:disabled) {
+        background: #4a90f0;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+      }
+
+      .btn-secondary {
+        background: var(--bg-ter);
+        color: var(--text-main);
+      }
+
+      .btn-secondary:hover:not(:disabled) {
+        background: var(--bg-sec);
+        transform: translateY(-2px);
+      }
+
+      .btn:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+        transform: none !important;
+      }
+
+      .btn-sm {
+        padding: 0.5rem 1rem;
+        font-size: 0.875rem;
+      }
+
+      /* ============================================
+         FORM ELEMENTS
+         ============================================ */
+      label {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        font-weight: 500;
+        margin-bottom: var(--spacing-sm);
+        font-family: var(--font-body);
+      }
+
+      label svg {
+        width: 1.25rem;
+        height: 1.25rem;
+        color: var(--accent);
+        flex-shrink: 0;
+      }
+
+      textarea, input[type="text"], input[type="password"], input[type="file"], select {
+        background: var(--bg-input) !important;
+        color: var(--text-main) !important;
+        border: 1px solid var(--border-input) !important;
+        border-radius: var(--radius-sm) !important;
+        padding: 0.75rem !important;
+        font-family: var(--font-body);
+        width: 100%;
+        font-size: 1rem;
+        transition: border 0.2s ease, box-shadow 0.2s ease;
+      }
+
+      textarea:focus, input:focus, select:focus {
+        outline: none !important;
+        border-color: var(--accent) !important;
+        box-shadow: 0 0 0 3px var(--accent-dim) !important;
+      }
+
+      ::placeholder {
+        color: var(--text-muted) !important;
+        opacity: 0.6 !important;
+      }
+
+      /* ============================================
+         MODEL SELECTION - CUSTOM STYLING
+         ============================================ */
+      .model-selector {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+        gap: 0.75rem;
+      }
+
+      .model-option {
+        background: var(--bg-input);
+        border: 2px solid var(--border);
+        border-radius: var(--radius-md);
+        padding: 1rem;
+        cursor: pointer;
+        transition: var(--transition-smooth);
+        text-align: center;
+        position: relative;
+      }
+
+      .model-option:hover {
+        border-color: var(--accent);
+        transform: translateY(-2px);
+      }
+
+      .model-option.selected {
+        border-color: var(--accent);
+        background: var(--accent-dim);
+      }
+
+      .model-option.selected::after {
+        content: '';
+        position: absolute;
+        top: 8px;
+        right: 8px;
+        width: 8px;
+        height: 8px;
+        background: var(--accent);
+        border-radius: 50%;
+      }
+
+      .model-option-icon {
+        width: 32px;
+        height: 32px;
+        margin: 0 auto 0.5rem;
+        object-fit: contain;
+      }
+
+      .model-option-name {
+        font-weight: 600;
+        font-size: 0.875rem;
+        margin-bottom: 0.25rem;
+        color: var(--text-main);
+      }
+
+      .model-option-desc {
+        font-size: 0.7rem;
+        color: var(--text-muted);
+        line-height: 1.3;
+      }
+
+      .model-badge {
+        display: inline-block;
+        font-size: 0.6rem;
+        padding: 2px 6px;
+        border-radius: 10px;
+        margin-top: 0.35rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.03em;
+      }
+
+      .model-badge.t2i {
+        background: rgba(59, 130, 246, 0.15);
+        color: #60a5fa;
+      }
+
+      .model-badge.t2i-i2i {
+        background: rgba(168, 85, 247, 0.15);
+        color: #c084fc;
+      }
+
+      /* ============================================
+         ASPECT RATIO - HORIZONTAL WITH SVG SHAPES
+         ============================================ */
+      .aspect-ratio-selector {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+      }
+
+      .aspect-ratio-option {
+        background: var(--bg-input);
+        border: 2px solid var(--border);
+        border-radius: var(--radius-sm);
+        padding: 0.5rem 0.75rem;
+        cursor: pointer;
+        transition: var(--transition-smooth);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 0.35rem;
+        min-width: 52px;
+      }
+
+      .aspect-ratio-option:hover {
+        border-color: var(--accent);
+        transform: translateY(-2px);
+      }
+
+      .aspect-ratio-option.active {
+        border-color: var(--accent);
+        background: var(--accent-dim);
+      }
+
+      .aspect-ratio-option.active .aspect-shape {
+        stroke: var(--accent);
+        fill: var(--accent-dim);
+      }
+
+      .aspect-shape {
+        width: 24px;
+        height: 24px;
+        stroke: var(--text-muted);
+        stroke-width: 2;
+        fill: transparent;
+        transition: var(--transition-fast);
+      }
+
+      .aspect-ratio-option:hover .aspect-shape {
+        stroke: var(--accent);
+      }
+
+      .aspect-ratio-label {
+        font-size: 0.7rem;
+        font-weight: 600;
+        color: var(--text-muted);
+      }
+
+      .aspect-ratio-option.active .aspect-ratio-label,
+      .aspect-ratio-option:hover .aspect-ratio-label {
+        color: var(--text-main);
+      }
+
+      /* Upload Area */
+      #aig-upload-area {
+        border: 2px dashed var(--border-input) !important;
+        padding: var(--spacing-lg);
+        border-radius: var(--radius-sm);
+        cursor: pointer;
+        transition: all 0.3s ease;
+        text-align: center;
+        background: var(--bg-input);
+      }
+
+      #aig-upload-area:hover {
+        border-color: var(--accent) !important;
+        background: var(--accent-dim) !important;
+      }
+
+      #aig-upload-area.dragover {
+        border-color: var(--accent) !important;
+        background: var(--accent-dim) !important;
+      }
+
+      /* Grid Layouts */
+      .grid {
+        display: grid;
+        gap: var(--spacing-lg);
+        width: 100%;
+      }
+
+      @media (min-width: 992px) {
+        .grid-cols-2 {
+          grid-template-columns: 1fr 1fr;
+        }
+      }
+
+      /* Preview Grid */
+      #aig-image-previews-container {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 0.75rem;
+        margin-bottom: var(--spacing-sm);
+      }
+
+      @media (min-width: 768px) {
+        #aig-image-previews-container {
+          grid-template-columns: repeat(4, 1fr);
+        }
+      }
+
+      /* Output Container */
+      .output-container {
+        aspect-ratio: 1/1;
+        background: var(--bg-input);
+        border-radius: var(--radius-md);
+        overflow: hidden;
+        position: relative;
+        border: 1px solid var(--border);
+      }
+
+      /* Status Displays */
+      #aig-status-display, #aig-error-display {
+        padding: 0.75rem 1rem;
+        border-radius: var(--radius-sm);
+        font-size: 0.875rem;
+        margin-top: var(--spacing-sm);
+        font-family: var(--font-body);
+      }
+
+      #aig-status-display {
+        background: var(--bg-ter);
+        border: 1px solid var(--border);
+        color: var(--success);
+      }
+
+      #aig-error-display {
+        background: rgba(239, 68, 68, 0.1);
+        border: 1px solid var(--danger);
+        color: var(--danger);
+      }
+
+      /* Footer */
+      .footer {
+        text-align: center;
+        margin-top: var(--spacing-xl);
+        padding-bottom: var(--spacing-lg);
+        color: var(--text-secondary);
+        font-size: 0.875rem;
+        font-family: var(--font-body);
+      }
+
+      /* Placeholder State */
+      #aig-placeholder-state {
+        position: absolute;
+        inset: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        padding: var(--spacing-lg);
+        color: var(--text-secondary);
+      }
+
+      /* ============================================
+         LOADING STATE - SHIMMERING PRE-CANVAS
+         ============================================ */
+      #aig-loading-state {
+        position: absolute;
+        inset: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        padding: var(--spacing-lg);
+        background: rgba(0, 0, 0, 0.85);
+        backdrop-filter: blur(5px);
+        z-index: 10;
+      }
+
+      [data-theme="light"] #aig-loading-state {
+        background: rgba(255, 255, 255, 0.9);
+      }
+
+      .shimmer-canvas-container {
+        position: relative;
+        width: 100%;
+        max-width: 280px;
+        aspect-ratio: var(--canvas-aspect, 1/1);
+        border-radius: var(--radius-md);
+        overflow: hidden;
+        box-shadow: var(--shadow-strong);
+        /* GPU acceleration hints */
+        transform: translateZ(0);
+        will-change: transform;
+      }
+
+      .shimmer-canvas {
+        width: 100%;
+        height: 100%;
+        display: block;
+        /* GPU acceleration for canvas */
+        transform: translateZ(0);
+      }
+
+      .shimmer-overlay {
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(
+          110deg,
+          transparent 20%,
+          rgba(255, 255, 255, 0.2) 40%,
+          rgba(255, 255, 255, 0.35) 50%,
+          rgba(255, 255, 255, 0.2) 60%,
+          transparent 80%
+        );
+        animation: shimmer-slide 1.8s ease-in-out infinite;
+        pointer-events: none;
+        /* GPU acceleration for smooth animation */
+        will-change: transform;
+        transform: translateZ(0);
+      }
+
+      /* Second shimmer layer for more depth */
+      .shimmer-overlay::after {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(
+          -45deg,
+          transparent 30%,
+          rgba(255, 255, 255, 0.1) 50%,
+          transparent 70%
+        );
+        animation: shimmer-slide 2.4s ease-in-out infinite reverse;
+      }
+
+      @keyframes shimmer-slide {
+        0% {
+          transform: translateX(-100%);
+        }
+        100% {
+          transform: translateX(100%);
+        }
+      }
+
+      #aig-loading-text {
+        font-weight: 500;
+        margin: 1.25rem 0 0.25rem 0;
+        font-family: var(--font-heading);
+        font-size: 1.1rem;
+        color: var(--text-main);
+      }
+
+      .loading-dots {
+        display: inline-flex;
+        gap: 4px;
+      }
+
+      .loading-dots span {
+        animation: dot-bounce 1.4s ease-in-out infinite;
+        animation-fill-mode: both;
+      }
+
+      .loading-dots span:nth-child(1) { animation-delay: 0s; }
+      .loading-dots span:nth-child(2) { animation-delay: 0.2s; }
+      .loading-dots span:nth-child(3) { animation-delay: 0.4s; }
+
+      @keyframes dot-bounce {
+        0%, 80%, 100% {
+          transform: translateY(0);
+          opacity: 0.4;
+        }
+        40% {
+          transform: translateY(-6px);
+          opacity: 1;
+        }
+      }
+
+      /* Generated Image */
+      #aig-generated-image {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+        transition: all 0.5s ease;
+      }
+
+      /* Actions Bar */
+      .actions-bar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: var(--spacing-sm);
+        flex-wrap: wrap;
+        gap: 0.5rem;
+      }
+
+      .actions-group {
+        display: flex;
+        gap: 0.5rem;
+      }
+
+      /* ============================================
+         TOAST NOTIFICATION
+         ============================================ */
+      .toast-container {
+        position: fixed;
+        bottom: 1.5rem;
+        left: 50%;
+        transform: translateX(-50%);
+        z-index: 100;
+        pointer-events: none;
+      }
+
+      .toast {
+        background: var(--bg-panel);
+        border: 1px solid var(--border);
+        border-radius: var(--radius-md);
+        padding: 1rem 1.5rem;
+        box-shadow: var(--shadow-strong);
+        backdrop-filter: blur(10px);
+        max-width: 90vw;
+        width: max-content;
+        opacity: 0;
+        transform: translateY(20px);
+        transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        pointer-events: auto;
+      }
+
+      .toast.show {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      .toast.fade-out {
+        opacity: 0;
+        transform: translateY(-10px);
+      }
+
+      .toast-content {
+        display: flex;
+        align-items: flex-start;
+        gap: 0.75rem;
+      }
+
+      .toast-icon {
+        width: 20px;
+        height: 20px;
+        color: #f59e0b;
+        flex-shrink: 0;
+        margin-top: 2px;
+      }
+
+      .toast-icon.success {
+        color: var(--success);
+      }
+
+      .toast-icon.error {
+        color: var(--danger);
+      }
+
+      .toast-message {
+        font-size: 0.875rem;
+        color: var(--text-main);
+        line-height: 1.5;
+      }
+
+      /* Modal */
+      #aig-edit-modal {
+        position: fixed;
+        inset: 0;
+        z-index: 50;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: var(--spacing-md);
+      }
+
+      #aig-edit-modal-backdrop {
+        position: absolute;
+        inset: 0;
+        background-color: rgba(0, 0, 0, 0.7);
+        backdrop-filter: blur(5px);
+      }
+
+      [data-theme="light"] #aig-edit-modal-backdrop {
+        background-color: rgba(0, 0, 0, 0.5);
+      }
+
+      .modal-content {
+        position: relative;
+        z-index: 10;
+        width: 100%;
+        max-width: 32rem;
+        background: var(--bg-panel);
+        border-radius: var(--radius-lg);
+        border: 1px solid var(--border);
+        padding: var(--spacing-lg);
+        animation: slideUp 0.3s ease-out;
+      }
+
+      .modal-footer {
+        display: flex;
+        justify-content: flex-end;
+        gap: var(--spacing-sm);
+        margin-top: var(--spacing-md);
+      }
+
+      /* ============================================
+         AUTH ERROR MODAL
+         ============================================ */
+      .auth-error-modal {
+        position: fixed;
+        inset: 0;
+        z-index: 2000;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: var(--spacing-md);
+      }
+
+      .auth-error-backdrop {
+        position: absolute;
+        inset: 0;
+        background-color: rgba(0, 0, 0, 0.8);
+        backdrop-filter: blur(8px);
+      }
+
+      .auth-error-content {
+        position: relative;
+        z-index: 10;
+        width: 100%;
+        max-width: 420px;
+        background: var(--bg-panel);
+        border-radius: var(--radius-lg);
+        border: 1px solid var(--danger);
+        padding: var(--spacing-xl);
+        text-align: center;
+        animation: slideUp 0.3s ease-out;
+        box-shadow: 0 25px 50px rgba(239, 68, 68, 0.2);
+      }
+
+      .auth-error-icon {
+        width: 64px;
+        height: 64px;
+        margin: 0 auto var(--spacing-md);
+        background: rgba(239, 68, 68, 0.1);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .auth-error-icon svg {
+        width: 32px;
+        height: 32px;
+        color: var(--danger);
+      }
+
+      .auth-error-title {
+        font-family: var(--font-heading);
+        font-size: 1.5rem;
+        font-weight: 700;
+        margin-bottom: var(--spacing-sm);
+        color: var(--danger);
+      }
+
+      .auth-error-message {
+        color: var(--text-secondary);
+        font-size: 0.95rem;
+        margin-bottom: var(--spacing-lg);
+        line-height: 1.6;
+      }
+
+      .auth-error-actions {
+        display: flex;
+        flex-direction: column;
+        gap: 0.75rem;
+      }
+
+      /* ============================================
+         ANIMATIONS
+         ============================================ */
+      @keyframes fadeIn {
+        0% { opacity: 0; transform: translateY(10px); }
+        100% { opacity: 1; transform: translateY(0); }
+      }
+
+      @keyframes slideUp {
+        0% { transform: translateY(20px); opacity: 0; }
+        100% { transform: translateY(0); opacity: 1; }
+      }
+
+      @keyframes pulse {
+        0%, 100% { opacity: 0.07; }
+        50% { opacity: 0.04; }
+      }
+
+      @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+      }
+
+      .animate-fade-in {
+        animation: fadeIn 0.5s ease-in-out;
+      }
+
+      .animate-slide-up {
+        animation: slideUp 0.3s ease-out;
+      }
+
+      /* Smooth transition for upload section */
+      #aig-upload-section {
+        max-height: 1000px;
+        overflow: hidden;
+        transition: max-height 0.4s ease, opacity 0.3s ease, margin 0.3s ease;
+      }
+
+      #aig-upload-section.aig-hidden {
+        max-height: 0;
+        opacity: 0;
+        margin: 0;
+        padding: 0;
+        border: none;
+      }
+
+      /* ============================================
+         RESPONSIVE DESIGN
+         ============================================ */
+      
+      /* Tablets and below (768px) */
+      @media (max-width: 991px) {
+        .grid-cols-2 {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      @media (max-width: 768px) {
+        .container {
+          padding: 0 var(--spacing-sm);
+        }
+        
+        .grid {
+          gap: var(--spacing-md);
+        }
+        
+        .panel {
+          padding: var(--spacing-sm);
+        }
+        
+        .header {
+          padding: var(--spacing-lg) 0 var(--spacing-md);
+        }
+        
+        .btn {
+          padding: 0.6rem 1.2rem;
+        }
+        
+        h1 {
+          margin-bottom: 0.25rem;
+        }
+        
+        .subtitle {
+          margin-bottom: 0.5rem;
+        }
+
+        .actions-bar {
+          flex-direction: column;
+          align-items: flex-start;
+        }
+
+        .actions-bar h3 {
+          margin-bottom: 0.5rem;
+        }
+
+        .model-selector {
+          grid-template-columns: repeat(2, 1fr);
+        }
+
+        .aspect-ratio-selector {
+          justify-content: center;
+        }
+
+        .toast-container {
+          bottom: 1rem;
+          left: 1rem;
+          right: 1rem;
+          transform: none;
+        }
+
+        .toast {
+          width: 100%;
+          max-width: none;
+        }
+
+        .registration-card {
+          padding: var(--spacing-lg);
+        }
+
+        .registration-title {
+          font-size: 1.5rem;
+        }
+
+        .registration-icon {
+          width: 64px;
+          height: 64px;
+        }
+
+        .registration-icon svg {
+          width: 32px;
+          height: 32px;
+        }
+
+        .floating-action-bar {
+          top: 0.75rem;
+          right: 0.75rem;
+        }
+
+        .floating-btn {
+          width: 40px;
+          height: 40px;
+        }
+
+        .key-management-panel {
+          width: 280px;
+          right: -0.5rem;
+        }
+      }
+
+      /* Mobile (576px and below) */
+      @media (max-width: 576px) {
+        :root {
+          --spacing-md: 1rem;
+          --spacing-lg: 1.5rem;
+        }
+
+        .panel {
+          margin-bottom: var(--spacing-sm);
+        }
+
+        .btn {
+          padding: 0.5rem 1rem;
+          font-size: 0.9rem;
+        }
+
+        textarea {
+          min-height: 100px !important;
+        }
+
+        #aig-upload-area {
+          padding: var(--spacing-md);
+        }
+
+        .modal-content {
+          padding: var(--spacing-md);
+        }
+
+        h1 {
+          font-size: 1.75rem;
+        }
+
+        .subtitle {
+          font-size: 0.9rem;
+        }
+
+        .model-selector {
+          grid-template-columns: 1fr 1fr;
+        }
+
+        .model-option {
+          padding: 0.75rem;
+        }
+
+        .model-option-icon {
+          width: 28px;
+          height: 28px;
+        }
+      }
+
+      /* Extra small devices (320px) */
+      @media (max-width: 375px) {
+        .container {
+          padding: 0 0.75rem;
+        }
+
+        .aspect-ratio-selector {
+          gap: 0.35rem;
+        }
+
+        .aspect-ratio-option {
+          padding: 0.4rem 0.5rem;
+          min-width: 46px;
+        }
+
+        .aspect-shape {
+          width: 20px;
+          height: 20px;
+        }
+
+        .aspect-ratio-label {
+          font-size: 0.6rem;
+        }
+
+        .btn {
+          font-size: 0.85rem;
+          padding: 0.45rem 0.9rem;
+        }
+
+        .model-selector {
+          grid-template-columns: 1fr;
+        }
+
+        .key-management-panel {
+          width: calc(100vw - 2rem);
+          right: -1rem;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Registration Overlay (shown on first visit or when no valid key) -->
+    <div class="registration-overlay aig-hidden" id="registration-overlay">
+      <div class="registration-card">
+        <div class="registration-icon">
+          <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H9v2H7v2H4a1 1 0 01-1-1v-2.586a1 1 0 01.293-.707l5.964-5.964A6 6 0 1121 9z"></path>
+          </svg>
+        </div>
+        <h2 class="registration-title">Welcome to URVILLAIN Imagine</h2>
+        <p class="registration-subtitle">To start generating amazing AI images, please authenticate to get your free API key.</p>
+        
+        <a href="https://enter.pollinations.ai/authorize?redirect_url=https://urv-imagine.vercel.app" target="_self" rel="noopener noreferrer" class="registration-btn" id="registration-link">
+          <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z"></path>
+          </svg>
+          Get Free API Key
+        </a>
+        
+        <div class="registration-note">
+          <div class="registration-note-title">
+            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+            </svg>
+            Important Information
+          </div>
+          <div class="registration-note-text">
+            <ul>
+              <li>Your API key is valid for <strong>30 days</strong></li>
+              <li>You will receive <strong>$1 credit daily</strong></li>
+              <li>Each model has different quota usage</li>
+              <li>You'll be redirected back automatically after authentication</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Auth Error Modal (shown when 403 error occurs) -->
+    <div class="auth-error-modal aig-hidden" id="auth-error-modal">
+      <div class="auth-error-backdrop"></div>
+      <div class="auth-error-content">
+        <div class="auth-error-icon">
+          <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path>
+          </svg>
+        </div>
+        <h3 class="auth-error-title">API Key Expired</h3>
+        <p class="auth-error-message">Your API key has expired or is invalid. Please re-authenticate to continue generating images. Your key is valid for 30 days from issuance.</p>
+        <div class="auth-error-actions">
+          <a href="https://enter.pollinations.ai/authorize?redirect_url=https://urv-imagine.vercel.app" target="_self" class="key-action-btn primary">
+            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path>
+            </svg>
+            Get New API Key
+          </a>
+          <button class="key-action-btn secondary" id="auth-error-dismiss">
+            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+            </svg>
+            Cancel
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Background decorative elements -->
+    <div class="bg-decoration bg-decoration-blue"></div>
+    <div class="bg-decoration bg-decoration-cyan"></div>
+
+    <!-- Floating Action Bar (Theme Toggle + Key Management) -->
+    <div class="floating-action-bar" id="floating-action-bar">
+      <!-- Theme Toggle -->
+      <button class="floating-btn" id="theme-toggle" aria-label="Toggle theme" title="Toggle theme">
+        <svg id="theme-icon-sun" class="aig-hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path>
+        </svg>
+        <svg id="theme-icon-moon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path>
+        </svg>
+      </button>
+
+      <!-- Key Management Button -->
+      <button class="floating-btn" id="key-management-btn" aria-label="API Key Management" title="API Key Management">
+        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H9v2H7v2H4a1 1 0 01-1-1v-2.586a1 1 0 01.293-.707l5.964-5.964A6 6 0 1121 9z"></path>
+        </svg>
+        <span class="key-status-dot" id="key-status-dot"></span>
+        
+        <!-- Key Management Dropdown Panel -->
+        <div class="key-management-panel" id="key-management-panel">
+          <div class="key-panel-header">
+            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H9v2H7v2H4a1 1 0 01-1-1v-2.586a1 1 0 01.293-.707l5.964-5.964A6 6 0 1121 9z"></path>
+            </svg>
+            <span class="key-panel-title">API Key Management</span>
+          </div>
+          
+          <!-- Has Key State -->
+          <div id="key-has-key-state">
+            <div class="key-display-container">
+              <div class="key-display-label">Current API Key</div>
+              <div class="key-display-value truncated" id="key-display-value">
+                <span id="key-value-text">No key</span>
+                <button class="key-copy-btn" id="key-copy-btn" title="Copy key">
+                  <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path>
+                  </svg>
+                </button>
+              </div>
+            </div>
+            
+            <div class="key-meta-info" id="key-meta-info">
+              <!-- Dynamic badges will be inserted here -->
+            </div>
+            
+            <div class="key-actions">
+              <a href="https://enter.pollinations.ai/authorize?redirect_url=https://urv-imagine.vercel.app" target="_self" class="key-action-btn primary">
+                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path>
+                </svg>
+                Refresh / Get New Key
+              </a>
+              <button class="key-action-btn secondary" id="key-clear-btn">
+                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
+                </svg>
+                Clear Key
+              </button>
+            </div>
+          </div>
+          
+          <!-- No Key State -->
+          <div class="key-no-key aig-hidden" id="key-no-key-state">
+            <svg class="key-no-key-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H9v2H7v2H4a1 1 0 01-1-1v-2.586a1 1 0 01.293-.707l5.964-5.964A6 6 0 1121 9z"></path>
+            </svg>
+            <p class="key-no-key-text">No API key found. Get a free key to start generating images.</p>
+            <a href="https://enter.pollinations.ai/authorize?redirect_url=https://urv-imagine.vercel.app" target="_self" class="key-action-btn primary">
+              <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z"></path>
+              </svg>
+              Get Free API Key
+            </a>
+          </div>
+        </div>
+      </button>
+    </div>
+
+    <div class="container">
+      <!-- Header -->
+      <div class="header">
+        <h1>URVILLAIN Imagine</h1>
+        <p class="subtitle">Transform your imagination into stunning visuals with AI.</p>
+      </div>
+
+      <!-- Main Content Grid -->
+      <div class="grid grid-cols-2">
+        <!-- Left Panel: Inputs -->
+        <div>
+          <!-- Model Selection - Custom -->
+          <div class="panel">
+            <label>
+              <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"></path>
+              </svg>
+              Choose a Model
+            </label>
+            <div class="model-selector" id="aig-model-selector">
+              <!-- T2I Models -->
+              <div class="model-option selected" data-model="flux" data-type="t2i">
+                <img class="model-option-icon" src="https://user.uploads.dev/file/cc31a66ddd22e0dbfb884d0de3318b70.png" alt="FLUX">
+                <div class="model-option-name">FLUX.1 Schnell</div>
+                <div class="model-option-desc">Fast & high quality</div>
+                <span class="model-badge t2i">T2I</span>
+              </div>
+              <div class="model-option" data-model="imagen-4" data-type="t2i">
+                <img class="model-option-icon" src="https://user.uploads.dev/file/f09ae3b16fed382b8a3145e1e09052e3.png" alt="Imagegen">
+                <div class="model-option-name">Imagegen 4</div>
+                <div class="model-option-desc">Google's latest</div>
+                <span class="model-badge t2i">T2I</span>
+              </div>
+              <div class="model-option" data-model="zimage" data-type="t2i">
+                <img class="model-option-icon" src="https://user.uploads.dev/file/2dda39f811987e652069ae31048527b5.png" alt="Z-Image">
+                <div class="model-option-name">Z-Image Turbo</div>
+                <div class="model-option-desc">Ultra fast</div>
+                <span class="model-badge t2i">T2I</span>
+              </div>
+              <!-- T2I + I2I Models -->
+              <div class="model-option" data-model="klein" data-type="t2i-i2i">
+                <img class="model-option-icon" src="https://user.uploads.dev/file/cc31a66ddd22e0dbfb884d0de3318b70.png" alt="Klein">
+                <div class="model-option-name">FLUX.2 Klein 4B</div>
+                <div class="model-option-desc">Lightweight I2I</div>
+                <span class="model-badge t2i-i2i">T2I + I2I</span>
+              </div>
+              <div class="model-option" data-model="klein-large" data-type="t2i-i2i">
+                <img class="model-option-icon" src="https://user.uploads.dev/file/cc31a66ddd22e0dbfb884d0de3318b70.png" alt="Klein Large">
+                <div class="model-option-name">FLUX.2 Klein 9B</div>
+                <div class="model-option-desc">Advanced I2I</div>
+                <span class="model-badge t2i-i2i">T2I + I2I</span>
+              </div>
+              <div class="model-option" data-model="gptimage" data-type="t2i-i2i">
+                <img class="model-option-icon" src="https://user.uploads.dev/file/ee27bfd6004c21fc3ef12897b3617cd4.png" alt="GPT Image">
+                <div class="model-option-name">GPT Image</div>
+                <div class="model-option-desc">OpenAI powered</div>
+                <span class="model-badge t2i-i2i">T2I + I2I</span>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Prompt Input -->
+          <div class="panel">
+            <label for="aig-prompt-input">
+              <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path>
+              </svg>
+              Describe Your Vision
+            </label>
+            <textarea 
+              id="aig-prompt-input" 
+              placeholder="A majestic dragon soaring through cosmic clouds..." 
+              style="min-height: 120px; resize: vertical;"
+            ></textarea>
+          </div>
+
+          <!-- Aspect Ratio Selection - Horizontal with SVG Shapes -->
+          <div class="panel">
+            <label>
+              <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3v18h18 M7 21v-2 M11 21v-2 M15 21v-2 M3 7h2 M3 11h2 M3 15h2"></path>
+              </svg>
+              Aspect Ratio
+            </label>
+            <div id="aig-aspect-ratio-selector" class="aspect-ratio-selector">
+              <button class="aspect-ratio-option" data-ratio="auto">
+                <svg class="aspect-shape" viewBox="0 0 24 24">
+                  <rect x="3" y="3" width="18" height="18" rx="2" stroke-dasharray="4 2"/>
+                </svg>
+                <span class="aspect-ratio-label">Auto</span>
+              </button>
+              <button class="aspect-ratio-option active" data-ratio="1:1">
+                <svg class="aspect-shape" viewBox="0 0 24 24">
+                  <rect x="4" y="4" width="16" height="16" rx="1"/>
+                </svg>
+                <span class="aspect-ratio-label">1:1</span>
+              </button>
+              <button class="aspect-ratio-option" data-ratio="16:9">
+                <svg class="aspect-shape" viewBox="0 0 24 24">
+                  <rect x="2" y="6" width="20" height="12" rx="1"/>
+                </svg>
+                <span class="aspect-ratio-label">16:9</span>
+              </button>
+              <button class="aspect-ratio-option" data-ratio="9:16">
+                <svg class="aspect-shape" viewBox="0 0 24 24">
+                  <rect x="6" y="2" width="12" height="20" rx="1"/>
+                </svg>
+                <span class="aspect-ratio-label">9:16</span>
+              </button>
+              <button class="aspect-ratio-option" data-ratio="4:3">
+                <svg class="aspect-shape" viewBox="0 0 24 24">
+                  <rect x="3" y="5" width="18" height="14" rx="1"/>
+                </svg>
+                <span class="aspect-ratio-label">4:3</span>
+              </button>
+              <button class="aspect-ratio-option" data-ratio="3:4">
+                <svg class="aspect-shape" viewBox="0 0 24 24">
+                  <rect x="5" y="3" width="14" height="18" rx="1"/>
+                </svg>
+                <span class="aspect-ratio-label">3:4</span>
+              </button>
+              <button class="aspect-ratio-option" data-ratio="3:2">
+                <svg class="aspect-shape" viewBox="0 0 24 24">
+                  <rect x="3" y="6" width="18" height="12" rx="1"/>
+                </svg>
+                <span class="aspect-ratio-label">3:2</span>
+              </button>
+              <button class="aspect-ratio-option" data-ratio="2:3">
+                <svg class="aspect-shape" viewBox="0 0 24 24">
+                  <rect x="6" y="3" width="12" height="18" rx="1"/>
+                </svg>
+                <span class="aspect-ratio-label">2:3</span>
+              </button>
+              <button class="aspect-ratio-option" data-ratio="21:9">
+                <svg class="aspect-shape" viewBox="0 0 24 24">
+                  <rect x="1" y="7" width="22" height="10" rx="1"/>
+                </svg>
+                <span class="aspect-ratio-label">21:9</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Multiple Image Upload (Hidden by default, shown for klein & gptimage) -->
+          <div class="panel aig-hidden" id="aig-upload-section">
+            <h3 style="display: flex; align-items: center; gap: 0.75rem;">
+              <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" style="width: 1.25rem; height: 1.25rem; color: var(--accent);">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+              </svg>
+              Reference Image
+            </h3>
+            <!-- Image Previews Container -->
+            <div id="aig-image-previews-container"></div>
+            <!-- Upload Area -->
+            <div id="aig-upload-area">
+              <div>
+                <svg style="width: 2.5rem; height: 2.5rem; margin: 0 auto; color: var(--text-secondary);" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path>
+                </svg>
+                <p style="margin: 0.5rem 0; font-weight: 500; color: var(--text-secondary);">Drop an image here or <span style="color: var(--accent);">browse</span></p>
+                <p id="aig-upload-limit-text" style="margin: 0; font-size: 0.75rem; color: var(--text-secondary);"></p>
+              </div>
+            </div>
+            <input type="file" id="aig-file-input" accept="image/*" class="aig-hidden" />
+          </div>
+          
+          <!-- Status and Error Displays -->
+          <div id="aig-status-display" class="aig-hidden animate-slide-up"></div>
+          <div id="aig-error-display" class="aig-hidden animate-slide-up"></div>
+
+          <!-- Action Buttons -->
+          <div style="display: flex; gap: 1rem; margin-top: var(--spacing-sm);">
+            <button id="aig-generate-btn" disabled class="btn btn-primary" style="flex: 1;">
+              <svg id="aig-generate-icon" style="width: 1.25rem; height: 1.25rem;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+              </svg>
+              <span id="aig-generate-text">Generate</span>
+            </button>
+            <button id="aig-clear-btn" class="btn btn-secondary">Clear</button>
+          </div>
+        </div>
+
+        <!-- Right Panel: Output -->
+        <div class="panel">
+          <div class="actions-bar">
+            <h3 style="margin: 0; display: flex; align-items: center; gap: 0.75rem;">
+              <svg style="width: 1.25rem; height: 1.25rem; color: var(--accent);" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+              </svg>
+              Generated Image
+            </h3>
+            <div id="aig-output-actions" class="actions-group aig-hidden">
+              <button id="aig-edit-btn" class="btn btn-secondary btn-sm">
+                <svg style="width: 1rem; height: 1rem;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.5L15.232 5.232z"></path>
+                </svg>
+                Edit
+              </button>
+              <button id="aig-download-btn" class="btn btn-primary btn-sm">
+                <svg style="width: 1rem; height: 1rem;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path>
+                </svg>
+                Download
+              </button>
+            </div>
+          </div>
+          <div class="output-container" id="aig-output-container">
+            <!-- Placeholder State -->
+            <div id="aig-placeholder-state">
+              <svg style="width: 4rem; height: 4rem; margin-bottom: 1rem; opacity: 0.5;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+              </svg>
+              <h4 style="font-weight: 500; margin: 0 0 0.5rem 0; color: var(--text-secondary); font-family: var(--font-heading);">Your masterpiece will appear here</h4>
+              <p style="margin: 0; font-size: 0.875rem; opacity: 0.7;">Enter a prompt to create AI art</p>
+            </div>
+            <!-- Loading State with Shimmer Canvas -->
+            <div id="aig-loading-state" class="aig-hidden">
+              <div class="shimmer-canvas-container" id="shimmer-container">
+                <canvas id="shimmer-canvas" class="shimmer-canvas"></canvas>
+                <div class="shimmer-overlay"></div>
+              </div>
+              <p id="aig-loading-text">
+                Imagining<span class="loading-dots"><span>.</span><span>.</span><span>.</span></span>
+              </p>
+              <p style="margin: 0; font-size: 0.875rem; color: var(--text-secondary);">This may take a few moments</p>
+            </div>
+            <!-- Generated Image -->
+            <img id="aig-generated-image" class="aig-hidden" alt="Generated AI artwork"/>
+          </div>
+        </div>
+      </div>
+
+      <!-- Footer -->
+      <div class="footer">
+        <p>Powered by <a href="https://pollinations.ai" target="_blank">Pollinations AI</a> & <a href="https://perchance.org/withthatway" target="_blank">WithThatWay Project</a></p>
+      </div>
+    </div>
+
+    <!-- Toast Container -->
+    <div class="toast-container">
+      <div class="toast" id="toast-notification">
+        <div class="toast-content">
+          <svg class="toast-icon" id="toast-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path>
+          </svg>
+          <span class="toast-message" id="toast-message">On mobile, if the tab becomes unfocused and loses memory, generation will fail. Please wait until the process is fully complete.</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Edit Image Modal -->
+    <div id="aig-edit-modal" class="aig-hidden">
+      <div id="aig-edit-modal-backdrop"></div>
+      <div class="modal-content">
+        <h3 style="font-size: 1.25rem; margin-top: 0; font-family: var(--font-heading);">Edit Your Image</h3>
+        <p style="color: var(--text-secondary); font-size: 0.875rem;">Describe the changes you want to make. The current image will be used as a reference.</p>
+        <div>
+          <label for="aig-edit-prompt" class="aig-hidden">Edit Instructions</label>
+          <textarea 
+            id="aig-edit-prompt" 
+            placeholder="e.g., 'Change the background to a fantasy forest', 'make it a pop-art style'..." 
+            style="min-height: 100px; resize: vertical;"
+          ></textarea>
+        </div>
+        <div class="modal-footer">
+          <button id="aig-edit-cancel-btn" class="btn btn-secondary">Cancel</button>
+          <button id="aig-edit-submit-btn" class="btn btn-primary">Apply Edits</button>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      // ============================================
+      // URVILLAIN IMAGINE - AI Image Generator
+      // Enhanced Version with:
+      // - API Key Management (parse, store, display)
+      // - Floating theme toggle with transparent/RGB background
+      // - 403 error handling with re-auth guidance
+      // - Key status indicators
+      // ============================================
+      (function () {
+        'use strict';
+
+        // ============================================
+        // API KEY MANAGER
+        // ============================================
+        const APIKeyManager = {
+          STORAGE_KEY: 'urvillain-api-key',
+          STORAGE_TIMESTAMP_KEY: 'urvillain-api-key-timestamp',
+          KEY_VALIDITY_DAYS: 30,
+          
+          currentKey: null,
+          keyTimestamp: null,
+
+          init() {
+            // Parse key from URL first (priority)
+            const urlKey = this.parseKeyFromURL();
+            if (urlKey) {
+              this.storeKey(urlKey);
+              this.cleanURL();
+            }
+            
+            // Load stored key
+            this.loadStoredKey();
+            
+            return this.hasValidKey();
+          },
+
+          parseKeyFromURL() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const hashParams = new URLSearchParams(window.location.hash.slice(1));
+            
+            // Check both query param and hash for 'key'
+            return urlParams.get('key') || hashParams.get('key') || urlParams.get('api_key') || hashParams.get('api_key');
+          },
+
+          storeKey(key) {
+            this.currentKey = key;
+            this.keyTimestamp = Date.now();
+            localStorage.setItem(this.STORAGE_KEY, key);
+            localStorage.setItem(this.STORAGE_TIMESTAMP_KEY, this.keyTimestamp.toString());
+          },
+
+          loadStoredKey() {
+            this.currentKey = localStorage.getItem(this.STORAGE_KEY);
+            const timestamp = localStorage.getItem(this.STORAGE_TIMESTAMP_KEY);
+            this.keyTimestamp = timestamp ? parseInt(timestamp, 10) : null;
+          },
+
+          cleanURL() {
+            // Remove key from URL for security
+            const url = new URL(window.location.href);
+            url.searchParams.delete('key');
+            url.searchParams.delete('api_key');
+            // Also clean hash
+            if (window.location.hash) {
+              const hashParams = new URLSearchParams(window.location.hash.slice(1));
+              hashParams.delete('key');
+              hashParams.delete('api_key');
+              const newHash = hashParams.toString();
+              window.history.replaceState({}, '', url.pathname + url.search + (newHash ? '#' + newHash : ''));
+            } else {
+              window.history.replaceState({}, '', url.pathname + url.search);
+            }
+          },
+
+          getKey() {
+            return this.currentKey;
+          },
+
+          hasValidKey() {
+            return this.currentKey !== null && this.currentKey.trim() !== '';
+          },
+
+          getDaysRemaining() {
+            if (!this.keyTimestamp) return null;
+            const elapsed = Date.now() - this.keyTimestamp;
+            const daysElapsed = elapsed / (1000 * 60 * 60 * 24);
+            return Math.max(0, Math.ceil(this.KEY_VALIDITY_DAYS - daysElapsed));
+          },
+
+          isExpiringSoon() {
+            const days = this.getDaysRemaining();
+            return days !== null && days <= 7 && days > 0;
+          },
+
+          isExpired() {
+            const days = this.getDaysRemaining();
+            return days !== null && days <= 0;
+          },
+
+          clearKey() {
+            this.currentKey = null;
+            this.keyTimestamp = null;
+            localStorage.removeItem(this.STORAGE_KEY);
+            localStorage.removeItem(this.STORAGE_TIMESTAMP_KEY);
+          },
+
+          getDisplayKey() {
+            if (!this.currentKey) return 'No key';
+            const key = this.currentKey;
+            if (key.length <= 16) return key;
+            return key.substring(0, 8) + '...' + key.substring(key.length - 6);
+          }
+        };
+
+        // ============================================
+        // THEME MANAGEMENT
+        // ============================================
+        const ThemeManager = {
+          STORAGE_KEY: 'urvillain-theme',
+          
+          init() {
+            const savedTheme = localStorage.getItem(this.STORAGE_KEY) || 'dark';
+            this.setTheme(savedTheme, false);
+            
+            document.getElementById('theme-toggle').addEventListener('click', () => {
+              const currentTheme = document.documentElement.getAttribute('data-theme') || 'dark';
+              const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+              this.setTheme(newTheme, true);
+            });
+          },
+          
+          setTheme(theme, save = true) {
+            document.documentElement.setAttribute('data-theme', theme);
+            
+            const sunIcon = document.getElementById('theme-icon-sun');
+            const moonIcon = document.getElementById('theme-icon-moon');
+            
+            if (theme === 'light') {
+              sunIcon.classList.remove('aig-hidden');
+              moonIcon.classList.add('aig-hidden');
+            } else {
+              sunIcon.classList.add('aig-hidden');
+              moonIcon.classList.remove('aig-hidden');
+            }
+            
+            if (save) {
+              localStorage.setItem(this.STORAGE_KEY, theme);
+            }
+          }
+        };
+
+        // ============================================
+        // FLOATING ACTION BAR MANAGER
+        // ============================================
+        const FloatingActionBarManager = {
+          init() {
+            const actionBar = document.getElementById('floating-action-bar');
+            let lastScrollY = window.scrollY;
+            
+            window.addEventListener('scroll', () => {
+              const currentScrollY = window.scrollY;
+              
+              if (currentScrollY > 50) {
+                actionBar.classList.add('scrolled');
+              } else {
+                actionBar.classList.remove('scrolled');
+              }
+              
+              lastScrollY = currentScrollY;
+            }, { passive: true });
+          }
+        };
+
+        // ============================================
+        // KEY MANAGEMENT PANEL MANAGER
+        // ============================================
+        const KeyManagementPanel = {
+          panel: null,
+          btn: null,
+          statusDot: null,
+          keyValueText: null,
+          keyMetaInfo: null,
+          hasKeyState: null,
+          noKeyState: null,
+          isOpen: false,
+
+          init() {
+            this.panel = document.getElementById('key-management-panel');
+            this.btn = document.getElementById('key-management-btn');
+            this.statusDot = document.getElementById('key-status-dot');
+            this.keyValueText = document.getElementById('key-value-text');
+            this.keyMetaInfo = document.getElementById('key-meta-info');
+            this.hasKeyState = document.getElementById('key-has-key-state');
+            this.noKeyState = document.getElementById('key-no-key-state');
+
+            // Toggle panel on button click
+            this.btn.addEventListener('click', (e) => {
+              e.stopPropagation();
+              this.toggle();
+            });
+
+            // Close panel when clicking outside
+            document.addEventListener('click', (e) => {
+              if (this.isOpen && !this.panel.contains(e.target) && !this.btn.contains(e.target)) {
+                this.close();
+              }
+            });
+
+            // Copy key button
+            document.getElementById('key-copy-btn').addEventListener('click', (e) => {
+              e.stopPropagation();
+              this.copyKey();
+            });
+
+            // Clear key button
+            document.getElementById('key-clear-btn').addEventListener('click', (e) => {
+              e.stopPropagation();
+              this.clearKey();
+            });
+
+            // Auth error dismiss button
+            document.getElementById('auth-error-dismiss').addEventListener('click', () => {
+              document.getElementById('auth-error-modal').classList.add('aig-hidden');
+            });
+
+            // Initial update
+            this.updateUI();
+          },
+
+          toggle() {
+            if (this.isOpen) {
+              this.close();
+            } else {
+              this.open();
+            }
+          },
+
+          open() {
+            this.panel.classList.add('show');
+            this.isOpen = true;
+          },
+
+          close() {
+            this.panel.classList.remove('show');
+            this.isOpen = false;
+          },
+
+          updateUI() {
+            const hasKey = APIKeyManager.hasValidKey();
+            
+            // Toggle states
+            this.hasKeyState.classList.toggle('aig-hidden', !hasKey);
+            this.noKeyState.classList.toggle('aig-hidden', hasKey);
+            
+            if (hasKey) {
+              // Update key display
+              this.keyValueText.textContent = APIKeyManager.getDisplayKey();
+              
+              // Update meta info
+              this.keyMetaInfo.innerHTML = '';
+              
+              const daysRemaining = APIKeyManager.getDaysRemaining();
+              if (daysRemaining !== null) {
+                const daysBadge = document.createElement('div');
+                daysBadge.className = 'key-meta-badge';
+                
+                if (daysRemaining <= 0) {
+                  daysBadge.classList.add('danger');
+                  daysBadge.innerHTML = `
+                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                    </svg>
+                    Expired
+                  `;
+                } else if (daysRemaining <= 7) {
+                  daysBadge.classList.add('warning');
+                  daysBadge.innerHTML = `
+                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                    </svg>
+                    ${daysRemaining} days left
+                  `;
+                } else {
+                  daysBadge.innerHTML = `
+                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                    </svg>
+                    ${daysRemaining} days left
+                  `;
+                }
+                
+                this.keyMetaInfo.appendChild(daysBadge);
+              }
+              
+              // Status badge
+              const statusBadge = document.createElement('div');
+              statusBadge.className = 'key-meta-badge';
+              statusBadge.innerHTML = `
+                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                </svg>
+                Active
+              `;
+              this.keyMetaInfo.appendChild(statusBadge);
+            }
+            
+            // Update status dot
+            this.updateStatusDot();
+          },
+
+          updateStatusDot() {
+            if (!APIKeyManager.hasValidKey()) {
+              this.statusDot.classList.add('invalid');
+              this.statusDot.classList.remove('expiring');
+            } else if (APIKeyManager.isExpired()) {
+              this.statusDot.classList.add('invalid');
+              this.statusDot.classList.remove('expiring');
+            } else if (APIKeyManager.isExpiringSoon()) {
+              this.statusDot.classList.add('expiring');
+              this.statusDot.classList.remove('invalid');
+            } else {
+              this.statusDot.classList.remove('invalid', 'expiring');
+            }
+          },
+
+          copyKey() {
+            const key = APIKeyManager.getKey();
+            if (key) {
+              navigator.clipboard.writeText(key).then(() => {
+                ToastManager.show('API key copied to clipboard!', 'success');
+              }).catch(() => {
+                ToastManager.show('Failed to copy key', 'error');
+              });
+            }
+          },
+
+          clearKey() {
+            APIKeyManager.clearKey();
+            this.updateUI();
+            ToastManager.show('API key cleared', 'success');
+            
+            // Show registration overlay
+            document.getElementById('registration-overlay').classList.remove('aig-hidden');
+            document.body.style.overflow = 'hidden';
+          },
+
+          showAuthError() {
+            document.getElementById('auth-error-modal').classList.remove('aig-hidden');
+            // Mark key as invalid
+            this.statusDot.classList.add('invalid');
+            this.statusDot.classList.remove('expiring');
+          },
+
+          hideAuthError() {
+            document.getElementById('auth-error-modal').classList.add('aig-hidden');
+          }
+        };
+
+        // ============================================
+        // TOAST MANAGER
+        // ============================================
+        const ToastManager = {
+          toast: null,
+          icon: null,
+          message: null,
+          timeout: null,
+
+          init() {
+            this.toast = document.getElementById('toast-notification');
+            this.icon = document.getElementById('toast-icon');
+            this.message = document.getElementById('toast-message');
+          },
+
+          show(text, type = 'warning', duration = 5000) {
+            if (this.timeout) {
+              clearTimeout(this.timeout);
+            }
+
+            this.message.textContent = text;
+            
+            // Update icon based on type
+            this.icon.classList.remove('success', 'error');
+            if (type === 'success') {
+              this.icon.classList.add('success');
+              this.icon.innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>';
+            } else if (type === 'error') {
+              this.icon.classList.add('error');
+              this.icon.innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>';
+            } else {
+              this.icon.innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path>';
+            }
+
+            this.toast.classList.remove('fade-out');
+            this.toast.classList.add('show');
+
+            this.timeout = setTimeout(() => {
+              this.toast.classList.add('fade-out');
+              setTimeout(() => {
+                this.toast.classList.remove('show', 'fade-out');
+              }, 400);
+            }, duration);
+          },
+
+          hide() {
+            if (this.timeout) {
+              clearTimeout(this.timeout);
+            }
+            this.toast.classList.add('fade-out');
+            setTimeout(() => {
+              this.toast.classList.remove('show', 'fade-out');
+            }, 400);
+          }
+        };
+
+        // ============================================
+        // SHIMMER CANVAS MANAGER
+        // ============================================
+        const ShimmerCanvas = {
+          canvas: null,
+          ctx: null,
+          animationId: null,
+          colors: [
+            '#3b82f6', '#8b5cf6', '#06b6d4', '#ec4899', '#f59e0b', '#10b981'
+          ],
+
+          init() {
+            this.canvas = document.getElementById('shimmer-canvas');
+            this.ctx = this.canvas.getContext('2d');
+          },
+
+          setAspectRatio(ratio) {
+            const container = document.getElementById('shimmer-container');
+            const aspectMap = {
+              '1:1': '1/1',
+              '16:9': '16/9',
+              '9:16': '9/16',
+              '4:3': '4/3',
+              '3:4': '3/4',
+              '3:2': '3/2',
+              '2:3': '2/3',
+              '21:9': '21/9',
+              'auto': '1/1'
+            };
+            container.style.setProperty('--canvas-aspect', aspectMap[ratio] || '1/1');
+          },
+
+          resize() {
+            const container = this.canvas.parentElement;
+            const rect = container.getBoundingClientRect();
+            // Cap canvas size to prevent performance issues
+            const maxSize = 400;
+            const scale = Math.min(1, maxSize / Math.max(rect.width, rect.height));
+            this.canvas.width = Math.floor(rect.width * scale);
+            this.canvas.height = Math.floor(rect.height * scale);
+          },
+
+          start() {
+            this.resize();
+            this.animate();
+          },
+
+          stop() {
+            if (this.animationId) {
+              cancelAnimationFrame(this.animationId);
+              this.animationId = null;
+            }
+          },
+
+          animate() {
+            const { canvas, ctx } = this;
+            
+            // Guard: skip if canvas has invalid dimensions
+            const width = canvas.width;
+            const height = canvas.height;
+            if (width <= 0 || height <= 0) {
+              this.animationId = requestAnimationFrame(() => this.animate());
+              return;
+            }
+            
+            const time = Date.now() * 0.001;
+
+            // Clear canvas
+            ctx.clearRect(0, 0, width, height);
+
+            // Create vibrant animated gradient background
+            // Use smooth interpolation instead of discrete color jumps
+            const progress = (time % 4) / 4; // 4-second cycle
+            const colorIndex = Math.floor(time * 0.25) % this.colors.length;
+            const nextColorIndex = (colorIndex + 1) % this.colors.length;
+            
+            const gradient = ctx.createLinearGradient(
+              Math.sin(time * 0.5) * width * 0.2,
+              Math.cos(time * 0.3) * height * 0.2,
+              width - Math.sin(time * 0.5) * width * 0.2,
+              height - Math.cos(time * 0.3) * height * 0.2
+            );
+            
+            gradient.addColorStop(0, this.colors[colorIndex]);
+            gradient.addColorStop(0.5, this.colors[nextColorIndex]);
+            gradient.addColorStop(1, this.colors[(colorIndex + 2) % this.colors.length]);
+
+            ctx.fillStyle = gradient;
+            ctx.fillRect(0, 0, width, height);
+
+            // Add a few animated glow spots (reduced from 5 to 3)
+            const spots = [
+              { phase: 0, speed: 0.4 },
+              { phase: 2.1, speed: 0.35 },
+              { phase: 4.2, speed: 0.45 }
+            ];
+            
+            for (const spot of spots) {
+              const x = (Math.sin(time * spot.speed + spot.phase) + 1) * 0.5 * width;
+              const y = (Math.cos(time * spot.speed * 0.7 + spot.phase) + 1) * 0.5 * height;
+              const radius = 30 + Math.sin(time * 0.8 + spot.phase) * 15;
+
+              const circleGradient = ctx.createRadialGradient(x, y, 0, x, y, radius);
+              circleGradient.addColorStop(0, 'rgba(255, 255, 255, 0.25)');
+              circleGradient.addColorStop(1, 'rgba(255, 255, 255, 0)');
+
+              ctx.fillStyle = circleGradient;
+              ctx.beginPath();
+              ctx.arc(x, y, radius, 0, Math.PI * 2);
+              ctx.fill();
+            }
+
+            this.animationId = requestAnimationFrame(() => this.animate());
+          }
+        };
+
+        // ============================================
+        // MAIN APPLICATION
+        // ============================================
+        const App = {
+          MAX_IMAGES: 4,
+          
+          // STORAGE KEYS
+          STORAGE: {
+            MODEL: 'urvillain-selected-model',
+            RATIO: 'urvillain-selected-ratio',
+            PROMPT: 'urvillain-current-prompt'
+          },
+
+          uploadedFiles: [],
+          generatedImageBlob: null,
+          previousImageBlob: null, // For edit failure restoration
+          isGenerating: false,
+          currentModel: 'flux',
+          lastUsedModel: null, // Track which model generated the current image
+          autoOutputDimensions: null,
+          selectedAspectRatio: '1:1',
+
+          // Model capabilities
+          T2I_ONLY_MODELS: ['flux', 'imagen-4', 'zimage'],
+          I2I_CAPABLE_MODELS: ['klein', 'klein-large', 'gptimage'],
+
+          ASPECT_RATIOS_PRESET: {
+            "21:9": { "width": 2048, "height": 877 },
+            "16:9": { "width": 1820, "height": 1024 },
+            "3:2": { "width": 1881, "height": 1254 },
+            "4:3": { "width": 1365, "height": 1024 },
+            "1:1": { "width": 1536, "height": 1536 },
+            "3:4": { "width": 1024, "height": 1365 },
+            "2:3": { "width": 1254, "height": 1881 },
+            "9:16": { "width": 1024, "height": 1820 }
+          },
+
+          AUTO_ASPECT_RATIOS: {
+            "1:1": [1, 1], "2:3": [2, 3], "3:4": [3, 4], "4:5": [4, 5],
+            "9:16": [9, 16], "16:9": [16, 9], "2:1": [2, 1], "1:2": [1, 2]
+          },
+
+          elements: {
+            modelSelector: document.getElementById("aig-model-selector"),
+            promptInput: document.getElementById("aig-prompt-input"),
+            fileInput: document.getElementById("aig-file-input"),
+            uploadArea: document.getElementById("aig-upload-area"),
+            previewsContainer: document.getElementById("aig-image-previews-container"),
+            uploadLimitText: document.getElementById("aig-upload-limit-text"),
+            statusDisplay: document.getElementById("aig-status-display"),
+            errorDisplay: document.getElementById("aig-error-display"),
+            generateBtn: document.getElementById("aig-generate-btn"),
+            generateIcon: document.getElementById("aig-generate-icon"),
+            generateText: document.getElementById("aig-generate-text"),
+            clearBtn: document.getElementById("aig-clear-btn"),
+            outputActions: document.getElementById("aig-output-actions"),
+            downloadBtn: document.getElementById("aig-download-btn"),
+            editBtn: document.getElementById("aig-edit-btn"),
+            loadingState: document.getElementById("aig-loading-state"),
+            loadingText: document.getElementById("aig-loading-text"),
+            generatedImage: document.getElementById("aig-generated-image"),
+            placeholderState: document.getElementById("aig-placeholder-state"),
+            editModal: document.getElementById("aig-edit-modal"),
+            editModalBackdrop: document.getElementById("aig-edit-modal-backdrop"),
+            editPrompt: document.getElementById("aig-edit-prompt"),
+            editCancelBtn: document.getElementById("aig-edit-cancel-btn"),
+            editSubmitBtn: document.getElementById("aig-edit-submit-btn"),
+            aspectRatioSelector: document.getElementById("aig-aspect-ratio-selector"),
+            uploadSection: document.getElementById("aig-upload-section"),
+            registrationOverlay: document.getElementById("registration-overlay")
+          },
+
+          // ============================================
+          // STORAGE HELPERS
+          // ============================================
+          saveToStorage(key, value) {
+            if (value && value.trim() !== '') {
+              localStorage.setItem(key, value);
+            } else {
+              localStorage.removeItem(key);
+            }
+          },
+
+          // ============================================
+          // UTILITY FUNCTIONS
+          // ============================================
+          calculateClosestDimensions(originalWidth, originalHeight, targetRatio) {
+            const [targetW, targetH] = targetRatio;
+            const originalArea = originalWidth * originalHeight;
+            const hFromW = Math.round(originalWidth * (targetH / targetW));
+            const area1 = originalWidth * hFromW;
+            const wFromH = Math.round(originalHeight * (targetW / targetH));
+            const area2 = wFromH * originalHeight;
+            
+            if (Math.abs(originalArea - area1) < Math.abs(originalArea - area2)) {
+              return [originalWidth, hFromW];
+            } else {
+              return [wFromH, originalHeight];
+            }
+          },
+
+          findBestAspectRatio(originalWidth, originalHeight) {
+            const originalArea = originalWidth * originalHeight;
+            let bestMatch = { ratioName: null, newDimensions: null, areaDifference: Infinity };
+            
+            for (const name in this.AUTO_ASPECT_RATIOS) {
+              if (Object.hasOwnProperty.call(this.AUTO_ASPECT_RATIOS, name)) {
+                const ratioTuple = this.AUTO_ASPECT_RATIOS[name];
+                const newDims = this.calculateClosestDimensions(originalWidth, originalHeight, ratioTuple);
+                const newArea = newDims[0] * newDims[1];
+                const diff = Math.abs(originalArea - newArea);
+                
+                if (diff < bestMatch.areaDifference) {
+                  bestMatch.areaDifference = diff;
+                  bestMatch.ratioName = name;
+                  bestMatch.newDimensions = newDims;
+                }
+              }
+            }
+            return bestMatch;
+          },
+
+          fileToBase64(file) {
+            return new Promise((resolve, reject) => {
+              const reader = new FileReader();
+              reader.readAsDataURL(file);
+              reader.onload = () => resolve(reader.result);
+              reader.onerror = error => reject(error);
+            });
+          },
+
+          // ============================================
+          // UI STATE MANAGEMENT
+          // ============================================
+          selectModel(model) {
+            this.currentModel = model;
+            this.saveToStorage(this.STORAGE.MODEL, model);
+            
+            // Update UI
+            this.elements.modelSelector.querySelectorAll('.model-option').forEach(opt => {
+              opt.classList.toggle('selected', opt.dataset.model === model);
+            });
+            
+            this.updateUploadSectionVisibility();
+          },
+
+          updateUploadSectionVisibility() {
+            const shouldShow = this.currentModel === 'klein' || this.currentModel === 'gptimage' || this.currentModel === 'klein-large';
+            this.elements.uploadSection.classList.toggle('aig-hidden', !shouldShow);
+          },
+
+          showError(message) {
+            this.elements.errorDisplay.textContent = `Error: ${message}`;
+            this.elements.errorDisplay.classList.remove("aig-hidden");
+          },
+
+          hideError() {
+            this.elements.errorDisplay.classList.add("aig-hidden");
+          },
+
+          showStatus(message) {
+            this.elements.statusDisplay.textContent = message;
+            this.elements.statusDisplay.classList.remove("aig-hidden");
+          },
+
+          hideStatus() {
+            this.elements.statusDisplay.classList.add("aig-hidden");
+          },
+
+          setLoading(loading, message = "Imagining...") {
+            this.isGenerating = loading;
+            this.elements.generateBtn.disabled = loading;
+            this.elements.clearBtn.disabled = loading;
+            
+            // Disable model selection
+            this.elements.modelSelector.querySelectorAll('.model-option').forEach(opt => {
+              opt.style.pointerEvents = loading ? 'none' : '';
+              opt.style.opacity = loading ? '0.5' : '';
+            });
+            
+            this.elements.loadingState.classList.toggle("aig-hidden", !loading);
+            
+            if (loading) {
+              this.elements.generateIcon.innerHTML = `<svg style="width: 1.25rem; height: 1.25rem; animation: spin 1s linear infinite;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path></svg>`;
+              this.elements.generateText.textContent = "Generating...";
+              this.elements.generatedImage.classList.add("aig-hidden");
+              this.elements.placeholderState.classList.add("aig-hidden");
+              this.elements.outputActions.classList.add("aig-hidden");
+              
+              // Set shimmer canvas aspect ratio and start animation
+              ShimmerCanvas.setAspectRatio(this.selectedAspectRatio);
+              ShimmerCanvas.start();
+            } else {
+              this.elements.generateIcon.innerHTML = `<svg style="width: 1.25rem; height: 1.25rem;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>`;
+              this.elements.generateText.textContent = "Generate";
+              ShimmerCanvas.stop();
+            }
+            
+            this.updateGenerateButtonState();
+          },
+
+          // ============================================
+          // IMAGE STATE RESTORATION (for edit failures)
+          // ============================================
+          saveCurrentImageState() {
+            this.previousImageBlob = this.generatedImageBlob;
+          },
+
+          restorePreviousImageState() {
+            if (this.previousImageBlob) {
+              this.generatedImageBlob = this.previousImageBlob;
+              this.elements.generatedImage.src = URL.createObjectURL(this.previousImageBlob);
+              this.elements.generatedImage.classList.remove("aig-hidden");
+              this.elements.outputActions.classList.remove("aig-hidden");
+              this.elements.placeholderState.classList.add("aig-hidden");
+            }
+          },
+
+          // ============================================
+          // FILE HANDLING
+          // ============================================
+          async uploadImageToHost(file) {
+            const formData = new FormData();
+            formData.append("file", file);
+            
+            try {
+              const response = await fetch("https://tmpfiles.org/api/v1/upload", {
+                method: "POST",
+                body: formData
+              });
+              
+              if (!response.ok) throw new Error(`API Error: ${response.status}`);
+              
+              const result = await response.json();
+              if (result.status === "success" && result.data.url) {
+                return result.data.url.replace('org/', 'org/dl/');
+              }
+              
+              throw new Error("Upload failed: Invalid response from server.");
+            } catch (error) {
+              console.error("Upload error:", error);
+              this.showError(`Network error during upload: ${error.message}`);
+              return null;
+            }
+          },
+
+          renderPreviews() {
+            this.elements.previewsContainer.innerHTML = '';
+            
+            this.uploadedFiles.forEach((file, index) => {
+              const reader = new FileReader();
+              reader.onload = (e) => {
+                const previewEl = document.createElement('div');
+                previewEl.style.cssText = 'position:relative; aspect-ratio:1/1;';
+                previewEl.innerHTML = `
+                  <img src="${e.target.result}" style="width:100%; height:100%; object-fit:cover; border-radius:var(--radius-sm); border:1px solid var(--border);">
+                  <button data-index="${index}" style="position:absolute; top:5px; right:5px; background:rgba(0,0,0,0.7); color:white; border:none; width:24px; height:24px; border-radius:50%; display:flex; align-items:center; justify-content:center; cursor:pointer; opacity:0; transition:opacity 0.2s ease;">
+                    <svg style="width:14px; height:14px;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                  </button>
+                `;
+                
+                previewEl.addEventListener('mouseover', () => previewEl.querySelector('button').style.opacity = 1);
+                previewEl.addEventListener('mouseout', () => previewEl.querySelector('button').style.opacity = 0);
+                
+                this.elements.previewsContainer.appendChild(previewEl);
+              };
+              reader.readAsDataURL(file);
+            });
+            
+            this.updateUploadUI();
+          },
+
+          handleFileSelect(files) {
+            this.hideError();
+            const newFiles = Array.from(files).filter(file => file.type.startsWith('image/'));
+            
+            if (this.uploadedFiles.length + newFiles.length > this.MAX_IMAGES) {
+              this.showError(`You can only upload a maximum of ${this.MAX_IMAGES} images.`);
+              return;
+            }
+            
+            if (newFiles.length > 0) {
+              const file = newFiles[0];
+              const img = new Image();
+              
+              img.onload = () => {
+                const MIN_WIDTH = 1024;
+                const originalWidth = img.naturalWidth;
+                const originalHeight = img.naturalHeight;
+                
+                const baseWidth = Math.max(originalWidth, MIN_WIDTH);
+                const proportionalHeight = Math.round(baseWidth * (originalHeight / originalWidth));
+                
+                const bestMatch = this.findBestAspectRatio(baseWidth, proportionalHeight);
+                const [newWidth, newHeight] = bestMatch.newDimensions;
+                
+                this.autoOutputDimensions = { width: newWidth, height: newHeight };
+                this.showStatus(`Auto-detected ratio: ${bestMatch.ratioName} (${newWidth}x${newHeight}). Select 'Auto' to use it.`);
+                
+                URL.revokeObjectURL(img.src);
+              };
+              
+              img.onerror = () => {
+                this.showError("Could not read image dimensions.");
+                URL.revokeObjectURL(img.src);
+              };
+              
+              img.src = URL.createObjectURL(file);
+            }
+            
+            this.uploadedFiles.push(...newFiles);
+            this.renderPreviews();
+            this.updateGenerateButtonState();
+          },
+
+          removePreview(index) {
+            this.uploadedFiles.splice(index, 1);
+            this.autoOutputDimensions = null;
+            this.hideStatus();
+            this.renderPreviews();
+            this.updateGenerateButtonState();
+          },
+
+          updateUploadUI() {
+            const remaining = this.MAX_IMAGES - this.uploadedFiles.length;
+            this.elements.uploadLimitText.textContent = `You can add up to ${this.MAX_IMAGES} images. (${remaining} remaining)`;
+            this.elements.uploadArea.classList.toggle('aig-hidden', this.uploadedFiles.length >= this.MAX_IMAGES);
+          },
+
+          // ============================================
+          // GENERATION LOGIC
+          // ============================================
+          updateGenerateButtonState() {
+            if (this.isGenerating) return;
+            
+            const hasPrompt = this.elements.promptInput.value.trim() !== '';
+            
+            this.elements.generateBtn.disabled = !hasPrompt;
+          },
+
+          async performGeneration(prompt, imageFile = null, isEdit = false) {
+            // Prevent race condition
+            if (this.isGenerating) {
+              console.warn('Generation already in progress. Ignoring request.');
+              return;
+            }
+
+            // Check for valid API key first
+            if (!APIKeyManager.hasValidKey()) {
+              KeyManagementPanel.showAuthError();
+              return;
+            }
+
+            // Save current image state before edit (for restoration on failure)
+            if (isEdit) {
+              this.saveCurrentImageState();
+            }
+
+            this.hideError();
+            this.hideStatus();
+            this.setLoading(true, "Preparing...");
+
+            const TIMEOUT_DURATION = 2 * 60 * 1000;
+            const startTime = Date.now();
+
+            try {
+              let imageUrls = [];
+              const filesToUpload = imageFile ? [imageFile] : this.uploadedFiles;
+
+              if (filesToUpload.length > 0) {
+                this.setLoading(true, `Uploading ${filesToUpload.length} image(s)...`);
+                imageUrls = (await Promise.all(filesToUpload.map(file => this.uploadImageToHost(file)))).filter(Boolean);
+                
+                if (imageUrls.length !== filesToUpload.length) {
+                  throw new Error("Some images failed to upload. Please try again.");
+                }
+              }
+
+              this.setLoading(true, "Imagining...");
+
+              let dimensions = null;
+              if (this.selectedAspectRatio === 'auto') {
+                dimensions = this.autoOutputDimensions;
+              } else {
+                dimensions = this.ASPECT_RATIOS_PRESET[this.selectedAspectRatio];
+              }
+
+              const negative = "low quality, worst quality, blurry, bad anatomy, distorted, JPEG artifacts, oversaturated, grainy, low-res";
+              const baseURL = "https://gen.pollinations.ai/image/";
+              const encodedPrompt = encodeURIComponent(prompt);
+              const apiKey = APIKeyManager.getKey();
+
+              let success = false, lastError = null;
+
+              while (!success && Date.now() - startTime < TIMEOUT_DURATION) {
+                try {
+                  let queryString = `model=${this.currentModel}&private=true&nologo=true&seed=${Math.floor(Math.random() * 1e6)}&quality=high&nofeed=true&negative_prompt=${encodeURIComponent(negative)}`;
+                  
+                  // Add API key to request
+                  if (apiKey) {
+                    queryString += `&key=${encodeURIComponent(apiKey)}`;
+                  }
+                  
+                  if (dimensions) {
+                    queryString += `&width=${dimensions.width}&height=${dimensions.height}`;
+                  }
+                  
+                  let finalURL = `${baseURL}${encodedPrompt}?${queryString}`;
+                  
+                  if (imageUrls.length > 0) {
+                    finalURL += `&image=${encodeURIComponent(imageUrls.join(','))}`;
+                  }
+                  
+                  finalURL += `&_cb=${Date.now()}`;
+
+                  const response = await fetch(finalURL);
+                  
+                  // Handle 403 Forbidden - API key expired or invalid
+                  if (response.status === 403) {
+                    this.setLoading(false);
+                    KeyManagementPanel.showAuthError();
+                    throw new Error("API key expired or invalid. Please re-authenticate.");
+                  }
+                  
+                  if (!response.ok) throw new Error(`Generation failed: HTTP ${response.status}`);
+                  
+                  const blob = await response.blob();
+                  
+                  if (blob.size < 1000) throw new Error("Received an invalid or empty image.");
+                  
+                  this.generatedImageBlob = blob;
+                  this.lastUsedModel = this.currentModel; // Track which model generated this image
+                  this.elements.generatedImage.src = URL.createObjectURL(blob);
+                  this.elements.generatedImage.classList.remove("aig-hidden");
+                  this.elements.outputActions.classList.remove("aig-hidden");
+                  this.showStatus("Image generated successfully!");
+                  
+                  success = true;
+                } catch (err) {
+                  lastError = err;
+                  
+                  // Don't retry on auth errors
+                  if (err.message.includes('API key expired') || err.message.includes('403')) {
+                    break;
+                  }
+                  
+                  await new Promise(resolve => setTimeout(resolve, 3000));
+                }
+              }
+
+              if (!success) {
+                throw new Error(`Generation failed. Last error: ${lastError?.message || "Unknown"}`);
+              }
+
+            } catch (err) {
+              this.showError(err.message);
+              
+              // If this was an edit operation, restore previous image
+              if (isEdit) {
+                this.restorePreviousImageState();
+                this.showStatus("Edit failed. Previous image restored.");
+              } else {
+                this.elements.placeholderState.classList.remove("aig-hidden");
+              }
+              this.hideStatus();
+            } finally {
+              this.setLoading(false);
+            }
+          },
+
+          // ============================================
+          // USER ACTIONS
+          // ============================================
+          clearAll() {
+            this.elements.promptInput.value = "";
+            this.elements.fileInput.value = "";
+            this.uploadedFiles = [];
+            this.generatedImageBlob = null;
+            this.previousImageBlob = null;
+            this.lastUsedModel = null; // Reset the last used model
+            this.autoOutputDimensions = null;
+            
+            // CLEANUP: Remove prompt from storage
+            localStorage.removeItem(this.STORAGE.PROMPT);
+            
+            this.renderPreviews();
+            
+            this.elements.generatedImage.src = "";
+            this.elements.generatedImage.classList.add("aig-hidden");
+            this.elements.placeholderState.classList.remove("aig-hidden");
+            this.elements.outputActions.classList.add("aig-hidden");
+            
+            this.hideError();
+            this.hideStatus();
+            this.updateGenerateButtonState();
+            this.handleAspectRatioChange('1:1');
+          },
+
+          handleAspectRatioChange(newRatio) {
+            this.selectedAspectRatio = newRatio;
+            // PERSISTENCE: Save ratio
+            this.saveToStorage(this.STORAGE.RATIO, newRatio);
+            
+            this.elements.aspectRatioSelector.querySelectorAll('.aspect-ratio-option').forEach(btn => {
+              btn.classList.toggle('active', btn.dataset.ratio === newRatio);
+            });
+          },
+
+          hideRegistrationOverlay() {
+            this.elements.registrationOverlay.classList.add('aig-hidden');
+            document.body.style.overflow = '';
+          },
+
+          showRegistrationOverlay() {
+            this.elements.registrationOverlay.classList.remove('aig-hidden');
+            document.body.style.overflow = 'hidden';
+          },
+
+          // ============================================
+          // INITIALIZATION
+          // ============================================
+          init() {
+            // Initialize sub-modules
+            ToastManager.init();
+            ShimmerCanvas.init();
+            FloatingActionBarManager.init();
+            KeyManagementPanel.init();
+
+            // 1. RESTORE MODEL
+            const savedModel = localStorage.getItem(this.STORAGE.MODEL);
+            if (savedModel) {
+              this.selectModel(savedModel);
+            }
+
+            // 2. RESTORE RATIO
+            const savedRatio = localStorage.getItem(this.STORAGE.RATIO);
+            if (savedRatio) {
+              this.handleAspectRatioChange(savedRatio);
+            }
+
+            // 3. RESTORE PROMPT
+            const savedPrompt = localStorage.getItem(this.STORAGE.PROMPT);
+            if (savedPrompt) {
+              this.elements.promptInput.value = savedPrompt;
+            }
+
+            // --- EVENT LISTENERS ---
+
+            // Model Selection
+            this.elements.modelSelector.addEventListener("click", (e) => {
+              const option = e.target.closest('.model-option');
+              if (option && !this.isGenerating) {
+                this.selectModel(option.dataset.model);
+              }
+            });
+
+            // Prompt Input
+            this.elements.promptInput.addEventListener("input", () => {
+              this.saveToStorage(this.STORAGE.PROMPT, this.elements.promptInput.value);
+              this.updateGenerateButtonState();
+            });
+
+            // Upload Area
+            this.elements.uploadArea.addEventListener("click", () => this.elements.fileInput.click());
+            this.elements.fileInput.addEventListener("change", (e) => this.handleFileSelect(e.target.files));
+            
+            this.elements.uploadArea.addEventListener("dragover", (e) => {
+              e.preventDefault();
+              this.elements.uploadArea.classList.add("dragover");
+            });
+            
+            this.elements.uploadArea.addEventListener("dragleave", (e) => {
+              e.preventDefault();
+              this.elements.uploadArea.classList.remove("dragover");
+            });
+            
+            this.elements.uploadArea.addEventListener("drop", (e) => {
+              e.preventDefault();
+              this.elements.uploadArea.classList.remove("dragover");
+              this.handleFileSelect(e.dataTransfer.files);
+            });
+
+            // Preview Removal
+            this.elements.previewsContainer.addEventListener('click', (e) => {
+              const removeBtn = e.target.closest('button');
+              if (removeBtn) this.removePreview(parseInt(removeBtn.dataset.index, 10));
+            });
+
+            // Aspect Ratio
+            this.elements.aspectRatioSelector.addEventListener('click', (e) => {
+              const btn = e.target.closest('.aspect-ratio-option');
+              if (btn) this.handleAspectRatioChange(btn.dataset.ratio);
+            });
+
+            // Generate Button
+            this.elements.generateBtn.addEventListener("click", () => {
+              const prompt = this.elements.promptInput.value.trim();
+              if (prompt) {
+                // Show mobile warning toast
+                ToastManager.show('On mobile, if the tab becomes unfocused and loses memory, generation will fail. Please wait until the process is fully complete.', 'warning');
+                this.performGeneration(prompt);
+              }
+            });
+
+            // Clear Button
+            this.elements.clearBtn.addEventListener("click", () => this.clearAll());
+
+            // Download Button
+            this.elements.downloadBtn.addEventListener("click", () => {
+              if (!this.generatedImageBlob) return;
+              
+              const link = document.createElement("a");
+              link.href = URL.createObjectURL(this.generatedImageBlob);
+              link.download = `urvillain-imagine-${Date.now()}.png`;
+              document.body.appendChild(link);
+              link.click();
+              document.body.removeChild(link);
+            });
+
+            // Edit Modal Triggers
+            this.elements.editBtn.addEventListener("click", () => {
+              // Auto-switch model if current image was generated by T2I-only model
+              if (this.lastUsedModel && this.T2I_ONLY_MODELS.includes(this.lastUsedModel)) {
+                this.selectModel('klein');
+                this.showStatus("Switched to FLUX.2 Klein 4B for image editing (I2I capability)");
+              }
+              this.elements.editModal.classList.remove("aig-hidden");
+              this.elements.editPrompt.focus();
+            });
+
+            this.elements.editCancelBtn.addEventListener("click", () => {
+              this.elements.editModal.classList.add("aig-hidden");
+            });
+
+            this.elements.editModalBackdrop.addEventListener("click", () => {
+              this.elements.editModal.classList.add("aig-hidden");
+            });
+
+            this.elements.editSubmitBtn.addEventListener("click", () => {
+              const editPromptText = this.elements.editPrompt.value.trim();
+              
+              if (editPromptText && this.generatedImageBlob) {
+                this.elements.editModal.classList.add("aig-hidden");
+                // Create a file from the current blob to use as input
+                const imageFile = new File([this.generatedImageBlob], "generated-image.png", { type: "image/png" });
+                this.performGeneration(editPromptText, imageFile, true); // true = isEdit
+                this.elements.editPrompt.value = "";
+              } else if (!editPromptText) {
+                this.showError("Please enter edit instructions.");
+              }
+            });
+
+            // Window resize handler for shimmer canvas
+            window.addEventListener('resize', () => {
+              if (this.isGenerating) {
+                ShimmerCanvas.resize();
+              }
+            });
+
+            // Initialize UI state
+            this.updateUploadSectionVisibility();
+            this.updateGenerateButtonState();
+          }
+        };
+
+        // ============================================
+        // START APPLICATION
+        // ============================================
+        
+        // Initialize API Key Manager first
+        const hasValidKey = APIKeyManager.init();
+        
+        // Initialize Theme Manager
+        ThemeManager.init();
+        
+        if (hasValidKey) {
+          // User has valid key, hide registration overlay and start app
+          document.getElementById('registration-overlay').classList.add('aig-hidden');
+          document.body.style.overflow = '';
+          App.init();
+          ToastManager.show('Welcome back! Your API key is active.', 'success', 3000);
+        } else {
+          // No valid key, show registration overlay
+          document.getElementById('registration-overlay').classList.remove('aig-hidden');
+          document.body.style.overflow = 'hidden';
+          // Still init the app but in background
+          App.init();
+        }
+
+        // Update key panel UI after everything is initialized
+        KeyManagementPanel.updateUI();
+
+      })();
+    </script>
+  </body>
+</html>
